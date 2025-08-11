@@ -8,6 +8,7 @@ import Auth from "./pages/Auth";
 import Language from "./pages/Language";
 import Details from "./pages/Details";
 import Recommendations from "./pages/Recommendations";
+import Help from "./pages/Help";
 import NotFound from "./pages/NotFound";
 import { AppProvider } from "./context/AppContext";
 
@@ -26,6 +27,7 @@ const App = () => (
             <Route path="/language" element={<Language />} />
             <Route path="/details" element={<Details />} />
             <Route path="/recommendations" element={<Recommendations />} />
+            <Route path="/help" element={<Help />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

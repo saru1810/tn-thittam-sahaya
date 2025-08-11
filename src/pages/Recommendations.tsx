@@ -12,17 +12,23 @@ const headings = {
     change: "Edit details",
     details: "View details",
     noMatch: "No exact matches found. Explore these statewide programs:",
+    needHelp: "Need Help?",
+    backToHome: "Back to Home",
+    startOver: "Start Over"
   },
   ta: {
     title: "உங்களுக்கு பரிந்துரைக்கப்படும் திட்டங்கள்",
     change: "விவரங்களை திருத்தவும்",
     details: "விவரங்கள்",
     noMatch: "உரிய பொருத்தங்கள் இல்லை. இத்திட்டங்களைப் பாருங்கள்:",
+    needHelp: "உதவி தேவையா?",
+    backToHome: "முகப்புக்கு திரும்பு",
+    startOver: "மீண்டும் தொடங்கு"
   },
 };
 
 const Recommendations = () => {
-  const { language, profile } = useApp();
+  const { language, profile, reset } = useApp();
   const navigate = useNavigate();
   const t = headings[language];
 
@@ -143,6 +149,18 @@ const Recommendations = () => {
                 </CardContent>
               </Card>
             ))}
+        </div>
+
+        <div className="flex gap-4 justify-center pt-6">
+          <Button onClick={() => navigate("/")} variant="outline">
+            {t.backToHome}
+          </Button>
+          <Button onClick={reset} variant="outline">
+            {t.startOver}
+          </Button>
+          <Button onClick={() => navigate("/help")} variant="outline">
+            {t.needHelp}
+          </Button>
         </div>
       </div>
     </main>
