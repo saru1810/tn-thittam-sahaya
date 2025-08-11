@@ -100,9 +100,9 @@ const Details = () => {
       <div className="max-w-3xl mx-auto p-6">
         <Card>
           <CardHeader>
-            <CardTitle asChild>
-              <h1 className="text-2xl">{t.title}</h1>
-            </CardTitle>
+          <CardTitle className="text-2xl">
+            {t.title}
+          </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 gap-6">

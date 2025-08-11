@@ -16,9 +16,9 @@ const Language = () => {
     <main className="min-h-screen flex items-center justify-center bg-background">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle asChild>
-            <h1 className="text-2xl">Select your language / உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்</h1>
-          </CardTitle>
+        <CardTitle className="text-2xl">
+          Select your language / உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்
+        </CardTitle>
         </CardHeader>
         <CardContent className="grid gap-4">
           <Button
