@@ -20,7 +20,7 @@ export interface Profile {
   schoolType?: SchoolType;
   higherEdEnrolled?: boolean;
   disabilityPercent?: number;
-  isTransgender?: boolean;
+  
 }
 
 interface AppContextValue {

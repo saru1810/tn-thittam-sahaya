@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useApp } from "@/context/AppContext";
 import { useNavigate } from "react-router-dom";
 import { Phone, Mail, MessageCircle, FileText, ArrowLeft } from "lucide-react";
+import ChatWidget from "@/components/ChatWidget";
 
 const Help = () => {
   const { language } = useApp();
@@ -117,9 +118,7 @@ const Help = () => {
                 <MessageCircle className="h-6 w-6 text-primary" />
                 <div>
                   <p className="font-medium">{t.chat}</p>
-                  <Button variant="link" className="h-auto p-0 text-sm">
-                    Start Chat
-                  </Button>
+                  <p className="text-sm text-muted-foreground">Click the chat icon below</p>
                 </div>
               </div>
             </div>
@@ -143,6 +142,7 @@ const Help = () => {
           </CardContent>
         </Card>
       </div>
+      <ChatWidget />
     </div>
   );
 };

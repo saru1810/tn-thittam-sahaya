@@ -169,7 +169,7 @@ export const schemes: Scheme[] = [
     apply: { en: "Board eligible buses and request zero-ticket.", ta: "தகுதியான பேருந்துகளில் பயணம் செய்து பூஜ்ய-டிக்கெட் பெறவும்." },
     officialUrl:
       "https://www.tnsocialwelfare.tn.gov.in/en/specilisationswomen-welfare/free-travel-for-women-in-government-buses",
-    rule: (p) => p.gender === "female" || bool(p.isTransgender),
+    rule: (p) => p.gender === "female" || p.gender === "other",
   },
   {
     id: "disability",

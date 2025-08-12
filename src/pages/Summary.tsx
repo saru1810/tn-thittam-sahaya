@@ -200,12 +200,6 @@ const Summary = () => {
                 </div>
               )}
 
-              <div>
-                <p className="font-medium text-muted-foreground">{t.transgender}</p>
-                <Badge variant={profile.isTransgender ? "default" : "secondary"}>
-                  {profile.isTransgender ? t.yes : t.no}
-                </Badge>
-              </div>
             </div>
 
             <div className="mt-8 flex gap-4 justify-end">

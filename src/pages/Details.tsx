@@ -31,7 +31,7 @@ const labels = {
     private: "Private",
     higherEd: "Enrolled in higher education",
     disability: "Disability percentage (%)",
-    transgender: "Transgender",
+    
     continue: "See recommendations",
   },
   ta: {
@@ -56,7 +56,7 @@ const labels = {
     private: "தனியார்",
     higherEd: "உயர்கல்வியில் சேர்க்கை",
     disability: "மாற்றுத் திறன் (%)",
-    transgender: "திருநங்கை",
+    
     continue: "தகுதித் திட்டங்கள் காண்க",
   },
 };
@@ -81,7 +81,7 @@ const Details = () => {
     schoolType: profile.schoolType ?? ("" as const),
     higherEdEnrolled: profile.higherEdEnrolled ?? false,
     disabilityPercent: profile.disabilityPercent ?? 0,
-    isTransgender: profile.isTransgender ?? false,
+    
   });
 
   useEffect(() => {
@@ -229,11 +229,6 @@ const Details = () => {
                   onChange={(e) => update("disabilityPercent", Number(e.target.value))} />
               </div>
 
-              <div className="flex items-center justify-between">
-                <Label htmlFor="tg">{t.transgender}</Label>
-                <Switch id="tg" checked={form.isTransgender}
-                  onCheckedChange={(v) => update("isTransgender", v)} />
-              </div>
             </div>
 
             <div className="mt-8 flex justify-end">
