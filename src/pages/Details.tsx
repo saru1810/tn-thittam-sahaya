@@ -11,6 +11,7 @@ import { useApp } from "@/context/AppContext";
 const labels = {
   en: {
     title: "Tell us about you",
+    name: "Full Name",
     age: "Age",
     gender: "Gender",
     male: "Male",
@@ -35,6 +36,7 @@ const labels = {
   },
   ta: {
     title: "உங்களைப் பற்றி கூறுங்கள்",
+    name: "முழு பெயர்",
     age: "வயது",
     gender: "பாலினம்",
     male: "ஆண்",
@@ -65,6 +67,7 @@ const Details = () => {
   const t = labels[language];
 
   const [form, setForm] = useState({
+    name: profile.name ?? "",
     age: profile.age ?? 25,
     gender: profile.gender ?? ("male" as const),
     isTNResident: profile.isTNResident ?? true,
@@ -92,7 +95,7 @@ const Details = () => {
     toast.success(
       language === "ta" ? "உங்கள் விவரங்கள் சேமிக்கப்பட்டது" : "Details saved"
     );
-    navigate("/recommendations");
+    navigate("/summary");
   };
 
   return (
@@ -106,6 +109,12 @@ const Details = () => {
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 gap-6">
+              <div className="md:col-span-2">
+                <Label htmlFor="name">{t.name}</Label>
+                <Input id="name" type="text" value={form.name}
+                  onChange={(e) => update("name", e.target.value)} />
+              </div>
+
               <div>
                 <Label htmlFor="age">{t.age}</Label>
                 <Input id="age" type="number" min={0} value={form.age}

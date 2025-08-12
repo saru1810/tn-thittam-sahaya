@@ -10,6 +10,8 @@ const headings = {
   en: {
     title: "Recommended schemes",
     change: "Edit details",
+    eligibility: "Eligibility",
+    application: "How to Apply",
     details: "View details",
     noMatch: "No exact matches found. Explore these statewide programs:",
     needHelp: "Need Help?",
@@ -19,6 +21,8 @@ const headings = {
   ta: {
     title: "உங்களுக்கு பரிந்துரைக்கப்படும் திட்டங்கள்",
     change: "விவரங்களை திருத்தவும்",
+    eligibility: "தகுதி",
+    application: "விண்ணப்பிக்கும் முறை",
     details: "விவரங்கள்",
     noMatch: "உரிய பொருத்தங்கள் இல்லை. இத்திட்டங்களைப் பாருங்கள்:",
     needHelp: "உதவி தேவையா?",
@@ -77,39 +81,35 @@ const Recommendations = () => {
                 <p className="text-sm text-muted-foreground">
                   {language === "ta" ? s.summary.ta : s.summary.en}
                 </p>
-                <div>
-                  <p className="font-medium">Eligibility</p>
-                  <p className="text-sm text-muted-foreground">
-                    {language === "ta" ? s.eligibilityNotes.ta : s.eligibilityNotes.en}
-                  </p>
-                </div>
-                <div>
-                  <p className="font-medium">Documents</p>
-                  <ul className="list-disc pl-5 text-sm text-muted-foreground">
-                    {s.documents.map((d, i) => (
-                      <li key={i}>{d}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <p className="font-medium">How to apply</p>
-                  <p className="text-sm text-muted-foreground">
-                    {language === "ta" ? s.apply.ta : s.apply.en}
-                  </p>
-                </div>
-                {s.officialUrl && (
-                  <a
-                    href={s.officialUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block"
-                    aria-label={
-                      (language === "ta" ? s.name.ta : s.name.en) + " official link"
-                    }
+                <div className="flex gap-2 flex-wrap">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => navigate(`/scheme/${s.id}?tab=eligibility`)}
                   >
-                    <Button variant="outline">{t.details}</Button>
-                  </a>
-                )}
+                    {t.eligibility}
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => navigate(`/scheme/${s.id}?tab=application`)}
+                  >
+                    {t.application}
+                  </Button>
+                  {s.officialUrl && (
+                    <a
+                      href={s.officialUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-block"
+                      aria-label={
+                        (language === "ta" ? s.name.ta : s.name.en) + " official link"
+                      }
+                    >
+                      <Button variant="outline" size="sm">{t.details}</Button>
+                    </a>
+                  )}
+                </div>
               </CardContent>
             </Card>
           ))}
@@ -143,7 +143,7 @@ const Recommendations = () => {
                       rel="noopener noreferrer"
                       className="inline-block"
                     >
-                      <Button variant="outline">{t.details}</Button>
+                      <Button variant="outline" size="sm">{t.details}</Button>
                     </a>
                   )}
                 </CardContent>

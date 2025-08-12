@@ -6,6 +6,7 @@ export type Gender = "male" | "female" | "other";
 export type SchoolType = "government" | "government_aided" | "private" | "";
 
 export interface Profile {
+  name?: string;
   age?: number;
   gender?: Gender;
   isTNResident?: boolean;
