@@ -11,6 +11,7 @@ import Summary from "./pages/Summary";
 import Recommendations from "./pages/Recommendations";
 import SchemeDetails from "./pages/SchemeDetails";
 import Help from "./pages/Help";
+import Chat from "./pages/Chat";
 import NotFound from "./pages/NotFound";
 import { AppProvider } from "./context/AppContext";
 
@@ -32,6 +33,7 @@ const App = () => (
             <Route path="/recommendations" element={<Recommendations />} />
             <Route path="/scheme/:id" element={<SchemeDetails />} />
             <Route path="/help" element={<Help />} />
+            <Route path="/chat" element={<Chat />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
