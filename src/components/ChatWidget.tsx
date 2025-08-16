@@ -170,7 +170,7 @@ const ChatWidget = () => {
 
       {/* Chat Widget */}
       {isOpen && (
-        <Card className="fixed bottom-24 right-6 w-80 h-96 shadow-xl z-50 flex flex-col">
+        <Card className="fixed bottom-24 right-4 left-4 sm:left-auto sm:right-6 sm:w-80 w-full max-w-sm h-96 shadow-xl z-50 flex flex-col">
           <CardHeader className="flex flex-row items-center justify-between p-4 bg-primary text-primary-foreground">
             <CardTitle className="text-sm">{t.title}</CardTitle>
             <Button
