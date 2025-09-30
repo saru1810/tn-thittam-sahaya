@@ -80,6 +80,16 @@ export default {
 				'gradient-secondary': 'var(--gradient-secondary)',
 				'gradient-accent': 'var(--gradient-accent)'
 			},
+			boxShadow: {
+				'soft': 'var(--shadow-sm)',
+				'lifted': 'var(--shadow-md)',
+				'floating': 'var(--shadow-lg)',
+				'elevated': 'var(--shadow-xl)'
+			},
+			spacing: {
+				'18': '4.5rem',
+				'88': '22rem'
+			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',

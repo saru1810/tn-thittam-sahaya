@@ -12,7 +12,7 @@ const ChatWidget = () => {
   return (
     <Button
       onClick={openChat}
-      className="fixed bottom-6 right-6 h-12 w-12 rounded-full shadow-lg z-50"
+      className="fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-floating bg-gradient-primary hover:opacity-90 z-50 transition-all duration-300 hover:scale-105"
       size="icon"
     >
       <MessageCircle className="h-6 w-6" />

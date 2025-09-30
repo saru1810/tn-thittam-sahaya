@@ -44,30 +44,34 @@ const Auth = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-green-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-secondary flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
           <Button
             variant="ghost"
             onClick={() => navigate('/')}
-            className="mb-4 text-gray-600 hover:text-gray-900"
+            className="mb-6 text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Home
           </Button>
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-orange-500 to-green-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">TN</span>
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <div className="w-14 h-14 bg-gradient-primary rounded-xl flex items-center justify-center shadow-lifted">
+              <span className="text-primary-foreground font-bold text-xl">TN</span>
             </div>
-            <h1 className="text-3xl font-bold text-gray-900">TN Thittam</h1>
+            <div className="text-left">
+              <h1 className="text-3xl font-bold text-foreground">TN Thittam</h1>
+              <p className="text-sm text-muted-foreground">Government Portal</p>
+            </div>
           </div>
-          <p className="text-gray-600">Access your government schemes portal</p>
+          <p className="text-muted-foreground">Access your government schemes portal</p>
         </div>
 
-        <Card className="border-orange-200 shadow-lg">
-          <CardHeader className="text-center pb-4">
-            <CardTitle className="text-2xl text-gray-900">Welcome</CardTitle>
+        <Card className="border-border/40 shadow-lifted backdrop-blur-sm bg-card/80">
+          <CardHeader className="text-center pb-6">
+            <CardTitle className="text-2xl text-foreground">Welcome Back</CardTitle>
+            <p className="text-sm text-muted-foreground">Sign in to your account</p>
           </CardHeader>
           <CardContent>
             <Tabs defaultValue="login" className="w-full">
@@ -106,7 +110,7 @@ const Auth = () => {
                   </div>
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-orange-500 to-green-600 hover:from-orange-600 hover:to-green-700"
+                    className="w-full bg-gradient-primary hover:opacity-90 shadow-soft"
                     disabled={isLoading}
                   >
                     {isLoading ? "Signing In..." : "Sign In"}
@@ -175,7 +179,7 @@ const Auth = () => {
                   </div>
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-orange-500 to-green-600 hover:from-orange-600 hover:to-green-700"
+                    className="w-full bg-gradient-primary hover:opacity-90 shadow-soft"
                     disabled={isLoading}
                   >
                     {isLoading ? "Creating Account..." : "Create Account"}
@@ -189,8 +193,8 @@ const Auth = () => {
           </CardContent>
         </Card>
 
-        <div className="text-center mt-6">
-          <p className="text-sm text-gray-500">
+        <div className="text-center mt-8">
+          <p className="text-sm text-muted-foreground">
             Secure platform for Tamil Nadu residents
           </p>
         </div>
