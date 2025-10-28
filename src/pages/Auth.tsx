@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -7,40 +7,72 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowLeft, Mail, Phone, User, Lock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/hooks/useAuth";
 
 const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { signIn, signUp, user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
+  const [registerName, setRegisterName] = useState("");
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPhone, setRegisterPhone] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      navigate('/language');
+    }
+  }, [user, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate login process
-    setTimeout(() => {
-      setIsLoading(false);
+    const { error } = await signIn(loginEmail, loginPassword);
+    
+    setIsLoading(false);
+    
+    if (error) {
+      toast({
+        title: "Login Failed",
+        description: error.message === "Invalid login credentials" 
+          ? "Please register first before attempting to login." 
+          : error.message,
+        variant: "destructive",
+      });
+    } else {
       toast({
         title: "Login Successful",
         description: "Welcome to TN Thittam!",
       });
       navigate('/language');
-    }, 1500);
+    }
   };
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     
-    // Simulate registration process
-    setTimeout(() => {
-      setIsLoading(false);
+    const { error } = await signUp(registerEmail, registerPassword);
+    
+    setIsLoading(false);
+    
+    if (error) {
+      toast({
+        title: "Registration Failed",
+        description: error.message,
+        variant: "destructive",
+      });
+    } else {
       toast({
         title: "Registration Successful",
         description: "Your account has been created successfully!",
       });
       navigate('/language');
-    }, 1500);
+    }
   };
 
   return (
@@ -88,9 +120,11 @@ const Auth = () => {
                       <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
                         id="login-email"
-                        type="text"
-                        placeholder="Enter email or phone number"
+                        type="email"
+                        placeholder="Enter email"
                         className="pl-10"
+                        value={loginEmail}
+                        onChange={(e) => setLoginEmail(e.target.value)}
                         required
                       />
                     </div>
@@ -104,6 +138,8 @@ const Auth = () => {
                         type="password"
                         placeholder="Enter your password"
                         className="pl-10"
+                        value={loginPassword}
+                        onChange={(e) => setLoginPassword(e.target.value)}
                         required
                       />
                     </div>
@@ -134,6 +170,8 @@ const Auth = () => {
                         type="text"
                         placeholder="Enter your full name"
                         className="pl-10"
+                        value={registerName}
+                        onChange={(e) => setRegisterName(e.target.value)}
                         required
                       />
                     </div>
@@ -147,6 +185,8 @@ const Auth = () => {
                         type="email"
                         placeholder="Enter your email"
                         className="pl-10"
+                        value={registerEmail}
+                        onChange={(e) => setRegisterEmail(e.target.value)}
                         required
                       />
                     </div>
@@ -160,6 +200,8 @@ const Auth = () => {
                         type="tel"
                         placeholder="Enter your phone number"
                         className="pl-10"
+                        value={registerPhone}
+                        onChange={(e) => setRegisterPhone(e.target.value)}
                         required
                       />
                     </div>
@@ -173,6 +215,8 @@ const Auth = () => {
                         type="password"
                         placeholder="Create a password"
                         className="pl-10"
+                        value={registerPassword}
+                        onChange={(e) => setRegisterPassword(e.target.value)}
                         required
                       />
                     </div>
