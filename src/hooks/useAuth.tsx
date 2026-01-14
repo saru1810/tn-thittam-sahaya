@@ -28,7 +28,8 @@ export const useAuth = () => {
   }, []);
 
   const signUp = async (email: string, password: string) => {
-    const redirectUrl = `${window.location.origin}/language`;
+   const redirectUrl = "https://tnthittam.netlify.app/language";
+
     
     const { data, error } = await supabase.auth.signUp({
       email,
