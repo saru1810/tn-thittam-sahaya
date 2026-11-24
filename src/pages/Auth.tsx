@@ -91,13 +91,11 @@ const Auth = () => {
       console.error('Error sending welcome email:', emailError);
     }
     
-    setIsLoading(false);
-    toast({
-      title: "Registration Successful",
-      description: "Your account has been created successfully! Check your email for confirmation.",
-    });
-    navigate('/language');
-  };
+   setIsLoading(false);
+toast({
+  title: "Registration Successful",
+  description: "Your account has been created successfully! Check your email for confirmation.",
+});
 
   return (
     <div className="min-h-screen bg-gradient-secondary flex items-center justify-center p-4">
