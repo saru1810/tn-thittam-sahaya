@@ -13,6 +13,7 @@ const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { signIn, signUp, user } = useAuth();
+
   const [isLoading, setIsLoading] = useState(false);
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -23,24 +24,25 @@ const Auth = () => {
 
   useEffect(() => {
     if (user) {
-      navigate('/language');
+      navigate("/language");
     }
   }, [user, navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
+
     const { error } = await signIn(loginEmail, loginPassword);
-    
+
     setIsLoading(false);
-    
+
     if (error) {
       toast({
         title: "Login Failed",
-        description: error.message === "Invalid login credentials" 
-          ? "Please register first before attempting to login." 
-          : error.message,
+        description:
+          error.message === "Invalid login credentials"
+            ? "Please register first before attempting to login."
+            : error.message,
         variant: "destructive",
       });
     } else {
@@ -48,125 +50,165 @@ const Auth = () => {
         title: "Login Successful",
         description: "Welcome to TN Thittam!",
       });
-      navigate('/language');
+
+      navigate("/language");
     }
   };
 
   const handleRegister = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsLoading(true);
+    e.preventDefault();
+    setIsLoading(true);
 
-  const { error } = await signUp(registerEmail, registerPassword);
+    const { error } = await signUp(registerEmail, registerPassword);
 
-  if (error) {
-    setIsLoading(false);
-    toast({
-      title: "Registration Failed",
-      description: error.message,
-      variant: "destructive",
-    });
-    return;
-  }
+    if (error) {
+      setIsLoading(false);
 
-  // Send welcome email
-  try {
-    const response = await fetch(
-      `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-welcome-email`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: registerEmail,
-          name: registerName,
-        }),
-      }
-    );
+      toast({
+        title: "Registration Failed",
+        description: error.message,
+        variant: "destructive",
+      });
 
-    if (!response.ok) {
-      console.error('Failed to send welcome email');
+      return;
     }
-  } catch (emailError) {
-    console.error('Error sending welcome email:', emailError);
-  }
 
-    
-   setIsLoading(false);
-toast({
-  title: "Registration Successful",
-  description: "Your account has been created successfully! Check your email for confirmation.",
-});
+    // Send welcome email
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-welcome-email`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: registerEmail,
+            name: registerName,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        console.error("Failed to send welcome email");
+      }
+    } catch (emailError) {
+      console.error("Error sending welcome email:", emailError);
+    }
+
+    setIsLoading(false);
+
+    toast({
+      title: "Registration Successful",
+      description:
+        "Your account has been created successfully! Check your email for confirmation.",
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-secondary flex items-center justify-center p-4">
       <div className="w-full max-w-md">
+
         {/* Header */}
         <div className="text-center mb-8">
           <Button
             variant="ghost"
-            onClick={() => navigate('/')}
+            onClick={() => navigate("/")}
             className="mb-6 text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Home
           </Button>
+
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="w-14 h-14 bg-gradient-primary rounded-xl flex items-center justify-center shadow-lifted">
-              <span className="text-primary-foreground font-bold text-xl">TN</span>
+              <span className="text-primary-foreground font-bold text-xl">
+                TN
+              </span>
             </div>
+
             <div className="text-left">
-              <h1 className="text-3xl font-bold text-foreground">TN Thittam</h1>
-              <p className="text-sm text-muted-foreground">Government Portal</p>
+              <h1 className="text-3xl font-bold text-foreground">
+                TN Thittam
+              </h1>
+              <p className="text-sm text-muted-foreground">
+                Government Portal
+              </p>
             </div>
           </div>
-          <p className="text-muted-foreground">Access your government schemes portal</p>
+
+          <p className="text-muted-foreground">
+            Access your government schemes portal
+          </p>
         </div>
 
         <Card className="border-border/40 shadow-lifted backdrop-blur-sm bg-card/80">
           <CardHeader className="text-center pb-6">
-            <CardTitle className="text-2xl text-foreground">Welcome Back</CardTitle>
-            <p className="text-sm text-muted-foreground">Sign in to your account</p>
+            <CardTitle className="text-2xl text-foreground">
+              Welcome Back
+            </CardTitle>
+
+            <p className="text-sm text-muted-foreground">
+              Sign in to your account
+            </p>
           </CardHeader>
+
           <CardContent>
             <Tabs defaultValue="login" className="w-full">
+
               <TabsList className="grid w-full grid-cols-2 mb-6">
                 <TabsTrigger value="login">Login</TabsTrigger>
                 <TabsTrigger value="register">Register</TabsTrigger>
               </TabsList>
 
+              {/* LOGIN */}
               <TabsContent value="login">
                 <form onSubmit={handleLogin} className="space-y-4">
+
                   <div className="space-y-2">
-                    <Label htmlFor="login-email">Email or Phone</Label>
+                    <Label htmlFor="login-email">
+                      Email or Phone
+                    </Label>
+
                     <div className="relative">
                       <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+
                       <Input
                         id="login-email"
                         type="email"
                         placeholder="Enter email"
                         className="pl-10"
                         value={loginEmail}
-                        onChange={(e) => setLoginEmail(e.target.value)}
+                        onChange={(e) =>
+                          setLoginEmail(e.target.value)
+                        }
                         required
                       />
                     </div>
                   </div>
+
                   <div className="space-y-2">
-                    <Label htmlFor="login-password">Password</Label>
+                    <Label htmlFor="login-password">
+                      Password
+                    </Label>
+
                     <div className="relative">
                       <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+
                       <Input
                         id="login-password"
                         type="password"
                         placeholder="Enter your password"
                         className="pl-10"
                         value={loginPassword}
-                        onChange={(e) => setLoginPassword(e.target.value)}
+                        onChange={(e) =>
+                          setLoginPassword(e.target.value)
+                        }
                         required
                       />
                     </div>
                   </div>
+
                   <Button
                     type="submit"
                     className="w-full bg-gradient-primary hover:opacity-90 shadow-soft"
@@ -174,88 +216,131 @@ toast({
                   >
                     {isLoading ? "Signing In..." : "Sign In"}
                   </Button>
+
                   <div className="text-center">
-                    <Button variant="link" className="text-sm text-gray-600">
+                    <Button
+                      variant="link"
+                      className="text-sm text-gray-600"
+                    >
                       Forgot Password?
                     </Button>
                   </div>
+
                 </form>
               </TabsContent>
 
+              {/* REGISTER */}
               <TabsContent value="register">
-                <form onSubmit={handleRegister} className="space-y-4">
+                <form
+                  onSubmit={handleRegister}
+                  className="space-y-4"
+                >
+
                   <div className="space-y-2">
-                    <Label htmlFor="register-name">Full Name</Label>
+                    <Label htmlFor="register-name">
+                      Full Name
+                    </Label>
+
                     <div className="relative">
                       <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+
                       <Input
                         id="register-name"
                         type="text"
                         placeholder="Enter your full name"
                         className="pl-10"
                         value={registerName}
-                        onChange={(e) => setRegisterName(e.target.value)}
+                        onChange={(e) =>
+                          setRegisterName(e.target.value)
+                        }
                         required
                       />
                     </div>
                   </div>
+
                   <div className="space-y-2">
-                    <Label htmlFor="register-email">Email Address</Label>
+                    <Label htmlFor="register-email">
+                      Email Address
+                    </Label>
+
                     <div className="relative">
                       <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+
                       <Input
                         id="register-email"
                         type="email"
                         placeholder="Enter your email"
                         className="pl-10"
                         value={registerEmail}
-                        onChange={(e) => setRegisterEmail(e.target.value)}
+                        onChange={(e) =>
+                          setRegisterEmail(e.target.value)
+                        }
                         required
                       />
                     </div>
                   </div>
+
                   <div className="space-y-2">
-                    <Label htmlFor="register-phone">Phone Number</Label>
+                    <Label htmlFor="register-phone">
+                      Phone Number
+                    </Label>
+
                     <div className="relative">
                       <Phone className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+
                       <Input
                         id="register-phone"
                         type="tel"
                         placeholder="Enter your phone number"
                         className="pl-10"
                         value={registerPhone}
-                        onChange={(e) => setRegisterPhone(e.target.value)}
+                        onChange={(e) =>
+                          setRegisterPhone(e.target.value)
+                        }
                         required
                       />
                     </div>
                   </div>
+
                   <div className="space-y-2">
-                    <Label htmlFor="register-password">Password</Label>
+                    <Label htmlFor="register-password">
+                      Password
+                    </Label>
+
                     <div className="relative">
                       <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+
                       <Input
                         id="register-password"
                         type="password"
                         placeholder="Create a password"
                         className="pl-10"
                         value={registerPassword}
-                        onChange={(e) => setRegisterPassword(e.target.value)}
+                        onChange={(e) =>
+                          setRegisterPassword(e.target.value)
+                        }
                         required
                       />
                     </div>
                   </div>
+
                   <Button
                     type="submit"
                     className="w-full bg-gradient-primary hover:opacity-90 shadow-soft"
                     disabled={isLoading}
                   >
-                    {isLoading ? "Creating Account..." : "Create Account"}
+                    {isLoading
+                      ? "Creating Account..."
+                      : "Create Account"}
                   </Button>
+
                   <p className="text-xs text-gray-500 text-center">
                     By registering, you agree to our terms and privacy policy
                   </p>
+
                 </form>
               </TabsContent>
+
             </Tabs>
           </CardContent>
         </Card>
@@ -265,6 +350,7 @@ toast({
             Secure platform for Tamil Nadu residents
           </p>
         </div>
+
       </div>
     </div>
   );
