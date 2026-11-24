@@ -8,7 +8,7 @@ import { ArrowLeft, Mail, Phone, User, Lock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/hooks/useAuth";
-
+import { useState } from "react";
 const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -22,11 +22,7 @@ const Auth = () => {
   const [registerPhone, setRegisterPhone] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
 
-  useEffect(() => {
-    if (user) {
-      navigate("/language");
-    }
-  }, [user, navigate]);
+
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
