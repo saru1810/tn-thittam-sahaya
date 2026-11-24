@@ -53,43 +53,51 @@ const Auth = () => {
   };
 
   const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    
-    const { error } = await signUp(registerEmail, registerPassword);
-    
-    if (error) {
-      setIsLoading(false);
-      toast({
-        title: "Registration Failed",
-        description: error.message,
-        variant: "destructive",
-      });
-      return;
-    }
-    
-    // Send welcome email
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-welcome-email`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email: registerEmail,
-            name: registerName,
-          }),
-        }
-      );
-      
-      if (!response.ok) {
-        console.error('Failed to send welcome email');
+  e.preventDefault();
+  setIsLoading(true);
+
+  const { error } = await signUp(registerEmail, registerPassword);
+
+  if (error) {
+    setIsLoading(false);
+    toast({
+      title: "Registration Failed",
+      description: error.message,
+      variant: "destructive",
+    });
+    return;
+  }
+
+  // Send welcome email
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-welcome-email`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: registerEmail,
+          name: registerName,
+        }),
       }
-    } catch (emailError) {
-      console.error('Error sending welcome email:', emailError);
+    );
+
+    if (!response.ok) {
+      console.error('Failed to send welcome email');
     }
+  } catch (emailError) {
+    console.error('Error sending welcome email:', emailError);
+  }
+
+  setIsLoading(false);
+
+  toast({
+    title: "Registration Successful",
+    description: "Your account has been created successfully! Check your email for confirmation.",
+  });
+};
     
    setIsLoading(false);
 toast({
