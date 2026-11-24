@@ -91,13 +91,6 @@ const Auth = () => {
     console.error('Error sending welcome email:', emailError);
   }
 
-  setIsLoading(false);
-
-  toast({
-    title: "Registration Successful",
-    description: "Your account has been created successfully! Check your email for confirmation.",
-  });
-};
     
    setIsLoading(false);
 toast({
